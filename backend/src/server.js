@@ -17,9 +17,10 @@ app.use("/api/messages", messageRoutes);
 if(process.env.NODE_ENV === 'production'){
     app.use(express.static(path.join(__dirname, "../frontend/dist")));
 
-    app.get("/*", (_, res) => {
+    // Serve index.html for all other routes in production
+    app.use((_, res) => {
         res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
-    })
+    });
 }
 
 app.listen(PORT, ()=> {
